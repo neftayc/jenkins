@@ -95,21 +95,4 @@ class EXMLTestResultTests(TestCase):
         raise ValueError(u"\N{BIOHAZARD SIGN} Too much \N{HOT BEVERAGE}")
 
 
-class SeleniumTests(LiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.display = Display(visible=0, size=(1024, 768))
-        cls.display.start()
-        cls.selenium = webdriver.Firefox()
-        super(SeleniumTests, cls).setUpClass()
 
-    @classmethod
-    def tearDownClass(cls):
-        super(SeleniumTests, cls).tearDownClass()
-        cls.selenium.quit()
-        cls.display.stop()
-
-    def test_login(self):
-        self.selenium.get('%s%s' % (self.live_server_url, '/test_click/'))
-        self.selenium.find_element_by_id("wm_click").click()
-        self.assertEqual('Button clicked', self.selenium.find_element_by_id("wm_target").text)
